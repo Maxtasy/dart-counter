@@ -1,0 +1,76 @@
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background-color: #333;
+    background: url("bg.jpg");
+    background-size: cover;
+    background-position: center;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Remove arrows on text input */
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.player-count {
+    text-align: center;
+}
+
+.app-container {
+    display: flex;
+}
+
+.panels-container {
+    display: flex;
+}
+
+.panel {
+    display: flex;
+    flex-direction: column;
+    color: #EEE;
+    border: 5px solid black;
+    background: #333;
+}
+
+.panel input[type="number"] {
+    -moz-appearance: textfield;
+    height: 2em;
+    width: 3em;
+    text-align: center;
+    font-size: 3em;
+    line-height: 3em;
+}
+
+.playername {
+    font-size: 2em;
+    text-align: center;
+}
+
+.score {
+    font-size: 3em;
+    text-align: center;
+    font-weight: bold;
+}
+
+.history {
+    min-height: 50px;
+    max-width: 150px;
+    font-size: .8em;
+    padding: 0 .5em;
+}
+
+.active {
+    border-color: blueviolet;
+}
