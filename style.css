@@ -15,8 +15,7 @@ body {
     min-height: 100vh;
     display: flex;
     flex-direction: column;
-    background-color: var(--background-color);
-    background: url("bg.jpg");
+    background: #333 url("bg.jpg");
     background-size: cover;
     background-position: center;
     justify-content: center;
@@ -95,9 +94,9 @@ input::-webkit-inner-spin-button {
 
 .history {
     min-height: 100px;
-    max-width: 150px;
+    max-width: 140px;
     font-size: .8em;
-    margin: 1em;
+    padding: 1.15em;
 }
 
 .active {
