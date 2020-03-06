@@ -1,5 +1,12 @@
+:root {
+    --background-color: #163240;
+    --text-color: #FFEECC;
+    --accent-color: #F26549;
+}
+
 *, *::before, *::after {
     box-sizing: border-box;
+    margin: 0;
 }
 
 body {
@@ -8,7 +15,7 @@ body {
     min-height: 100vh;
     display: flex;
     flex-direction: column;
-    background-color: #333;
+    background-color: var(--background-color);
     background: url("bg.jpg");
     background-size: cover;
     background-position: center;
@@ -24,8 +31,12 @@ input::-webkit-inner-spin-button {
   margin: 0;
 }
 
+.playercount-label {
+    color: var(--text-color);
+}
+
 .player-count {
-    text-align: center;
+    margin-bottom: 1em;
 }
 
 .app-container {
@@ -39,38 +50,66 @@ input::-webkit-inner-spin-button {
 .panel {
     display: flex;
     flex-direction: column;
-    color: #EEE;
-    border: 5px solid black;
-    background: #333;
+    color: var(--text-color);
+    border: 5px solid var(--text-color);
+    background: var(--background-color);
 }
 
 .panel input[type="number"] {
+    background-color: #1F4B59;
+    color: #D94E41;
+    font-family: inherit;
+    font-weight: bold;
     -moz-appearance: textfield;
-    height: 2em;
+    height: 1.5em;
     width: 3em;
     text-align: center;
     font-size: 3em;
     line-height: 3em;
+    border: 1px solid transparent;
 }
 
 .playername {
     font-size: 2em;
     text-align: center;
+    margin-top: .25em;
+    margin-bottom: .75em;
+}
+
+.panel.active .playername {
+    text-decoration: underline;
+}
+
+.panel.active .playername,
+.panel.active .score {
+    color: var(--accent-color);
 }
 
 .score {
-    font-size: 3em;
+    font-size: 4em;
     text-align: center;
     font-weight: bold;
+    margin-top: .25em;
+    margin-bottom: .75em;
 }
 
 .history {
-    min-height: 50px;
+    min-height: 100px;
     max-width: 150px;
     font-size: .8em;
-    padding: 0 .5em;
+    margin: 1em;
 }
 
 .active {
-    border-color: blueviolet;
+    border-color: var(--accent-color);
+}
+
+.score,
+.playername,
+.history,
+.playercount-label {
+    -webkit-user-select: none;  /* Chrome all / Safari all */
+    -moz-user-select: none;     /* Firefox all */
+    -ms-user-select: none;      /* IE 10+ */
+    user-select: none;          /* Likely future */      
 }

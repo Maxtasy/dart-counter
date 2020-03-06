@@ -1,8 +1,8 @@
+const playerCountLabel = document.querySelector(".playercount-label");
 const playerCountSlider = document.querySelector(".player-count");
 const panelsContainer = document.querySelector(".panels-container");
 
 let panels = [];
-let playerNames = [];
 let playerCount = 2;
 let currentPlayer = 1;
 
@@ -10,6 +10,7 @@ playerCountSlider.addEventListener("input", handlePlayerCountChange);
 
 function handlePlayerCountChange(e) {
     createPanels(e.target.value);
+    playerCountLabel.textContent = `Players: ${e.target.value}`;
 }
 
 function createPanels(newPlayerCount) {
@@ -18,7 +19,7 @@ function createPanels(newPlayerCount) {
     for (let i = 0; i < newPlayerCount; i++) {
         panelsHTML += `
             <div class="panel player${i+1}">
-                <p class="playername player${i+1}">Player ${i+1}</p>
+                <h3 class="playername player${i+1}">Player ${i+1}</h3>
                 <p class="history player${i+1}"></p>
                 <p class="score player${i+1}">501</p>
                 <input type="number" class="score-input player${i+1}">
@@ -32,6 +33,7 @@ function createPanels(newPlayerCount) {
 
     scoreInputs.forEach(scoreInput => {
         scoreInput.addEventListener("keydown", handleInput);
+        scoreInput.addEventListener("click", handleClicked);
     });
 
     const nameLabels = document.querySelectorAll(".playername");
@@ -60,12 +62,28 @@ function handleInput(e) {
         }
 
         const scoreLabel = e.target.previousElementSibling;
-        let newScore = parseInt(scoreLabel.textContent) - parseInt(e.target.value);
+
+        const oldScore = parseInt(scoreLabel.textContent);
+        const roundScore = parseInt(e.target.value);
+
+        if (roundScore > 180) {
+            return;
+        }
+
+        const newScore = oldScore - roundScore;
+
+        if (newScore < 0) {
+            return;
+        }
 
         scoreLabel.textContent = newScore;
 
         if (newScore === 0) {
-            alert(`Player ${currentPlayer} wins the match!`);
+            const winner = document.querySelector(`.playername.player${currentPlayer}`).textContent;
+            const response = confirm(`${winner} wins the match!\nNew game?`);
+            if (response == true) {
+                newGame();
+            }
             return;
         }
 
@@ -86,12 +104,39 @@ function handleInput(e) {
     }
 }
 
+function handleClicked(e) {
+    currentPlayer = e.target.classList.value.substr(-1);
+    setActive(currentPlayer);
+}
+
 function setActive(currentPlayer) {
     panels.forEach(panel => {
         panel.classList.remove("active");
     });
     document.querySelector(`.panel.player${currentPlayer}`).classList.add("active");
     document.querySelector(`.score-input.player${currentPlayer}`).focus();
+}
+
+function newGame() {
+    const scoreLabels = document.querySelectorAll(".score");
+    scoreLabels.forEach(scoreLabel => {
+        scoreLabel.textContent = "501";
+    });
+
+    
+    const histories = document.querySelectorAll(".history");
+    histories.forEach(history => {
+        history.textContent = "";
+    });
+
+    const scoreInputs = document.querySelectorAll(".score-input");
+
+    scoreInputs.forEach(scoreInput => {
+        scoreInput.value = "";
+    });
+    
+    currentPlayer = 1;
+    setActive(currentPlayer);
 }
 
 createPanels(playerCount);
